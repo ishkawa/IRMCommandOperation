@@ -9,19 +9,14 @@
 
 @implementation IRMCommandOperation
 
-- (id)init
-{
-    return [self initWithCommand:@"au"
-                        argument:nil
-                         handler:nil];
-}
-
-- (id)initWithCommand:(NSString *)command
-             argument:(NSString *)argument
-              handler:(void (^)(NSData *, NSError *))handler
+- (id)initWithHost:(NSString *)host
+           command:(NSString *)command
+          argument:(NSString *)argument
+           handler:(void (^)(NSData *, NSError *))handler
 {
     self = [super init];
     if (self) {
+        _host     = host;
         _command  = command;
         _argument = argument;
         _handler  = handler;
@@ -29,7 +24,7 @@
         
         CFReadStreamRef readStream = NULL;
         CFWriteStreamRef writeStream = NULL;
-        CFStringRef hostNameRef = (__bridge CFStringRef)IRMHostName;
+        CFStringRef hostNameRef = (__bridge CFStringRef)host;
         
         CFStreamCreatePairWithSocketToHost(NULL,
                                            hostNameRef,
@@ -45,12 +40,14 @@
 
 + (void)sendCommand:(NSString *)command
            argument:(NSString *)argument
+               host:(NSString *)host
               queue:(NSOperationQueue *)queue
             handler:(void (^)(NSData *, NSError *))handler
 {
-    IRMCommandOperation *operation = [[IRMCommandOperation alloc] initWithCommand:command
-                                                                       argument:argument
-                                                                        handler:handler];
+    IRMCommandOperation *operation = [[IRMCommandOperation alloc] initWithHost:host
+                                                                       command:command
+                                                                      argument:argument
+                                                                       handler:handler];
     [queue addOperation:operation];
 }
 
