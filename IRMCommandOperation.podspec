@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
   s.name         = "IRMCommandOperation"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "an operation to send command to iRemocon."
   s.homepage     = "https://github.com/ishkawa/IRMCommandOperation"
   s.author       = { "Yosuke Ishikawa" => "y@ishkawa.org" }
-  s.source       = { :git => "https://github.com/ishkawa/IRMCommandOperation.git", :tag => "0.0.1" }
+  s.source       = { :git => "https://github.com/ishkawa/IRMCommandOperation.git", :tag => "0.0.2" }
   s.platform     = :ios, '5.0'
   s.requires_arc = true
   s.source_files = 'IRMCommandOperation/**/*.{h,m}'
